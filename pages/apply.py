@@ -1,13 +1,9 @@
 import os
 from common import make_apply
-from openai import OpenAI
 
 import streamlit as st
 from datetime import datetime, timedelta
 
-os.environ["OPENAI_API_KEY"] = 'sk-proj-8glhtbX6oXRT4JxegEIPT3BlbkFJl1hCtiw1Z7yAeNJI8hsf'
-
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 ## 제목 타이틀
 make_apply();
@@ -67,32 +63,15 @@ isOk = st.button('맞춤법 검사하기');
 
 if isOk : 
     needValue();
-    with st.spinner('맞춤법 검사중..'):
-        # 각 일기의 프롬프트 생성
-        chat_completion1 = client.chat.completions.create(
-        messages=[
-            {
-                "role": "system",
-                "content": f"내가 한국어로 기획서를 작성했습니다. 그런데 맞춤법 검사를 받고 싶습니다." + 
-                            f"프로젝트 목적 : {projectSupport}, 프로젝트 개요 : {projectOverview}, 추진방향 : {projectPropose}, 요구사항 : {projectRequirement}"
-            }, 
-        ],
-        model="gpt-4o",
-    )  
-        
-    supportContent = chat_completion1.choices[0].message.content     
-    
-    st.write(supportContent);
-    if supportContent : 
-        st.page_link("pages/excel.py", label="기획서 엑셀로 만들기", icon="🙂")
-        st.session_state['title'] = title;
-        st.session_state['projectSupport'] = projectSupport;
-        st.session_state['projectOverview'] = projectOverview;
-        st.session_state['projectPropose'] = projectPropose;
-        st.session_state['projectSupport'] = projectSupport;
-        st.session_state['selected_date_range'] = selected_date_range;
-        st.session_state['persons'] = persons;
-        st.session_state['money'] = money;
-        st.session_state['projectRequirement'] = projectRequirement;
+    st.page_link("pages/excel.py", label="기획서 엑셀로 만들기", icon="🙂")
+    st.session_state['title'] = title;
+    st.session_state['projectSupport'] = projectSupport;
+    st.session_state['projectOverview'] = projectOverview;
+    st.session_state['projectPropose'] = projectPropose;
+    st.session_state['projectSupport'] = projectSupport;
+    st.session_state['selected_date_range'] = selected_date_range;
+    st.session_state['persons'] = persons;
+    st.session_state['money'] = money;
+    st.session_state['projectRequirement'] = projectRequirement;
             
     
