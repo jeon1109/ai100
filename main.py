@@ -1,5 +1,4 @@
 import os
-from openai import OpenAI
 from common import display_markdown
 
 import streamlit as st
